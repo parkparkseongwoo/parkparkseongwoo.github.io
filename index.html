@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박성우우 포트폴리오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --dark-blue: #0a192f;
+            --light-blue: #112240;
+            --accent-blue: #64ffda;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-blue);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 8vw, 80px);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-blue);
+            font-size: clamp(16px, 3vw, 22px);
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: clamp(14px, 2vw, 18px);
+            max-width: 540px;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--accent-blue);
+            opacity: 0.3;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background-color: var(--light-blue);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        .project-card {
+            background-color: var(--light-blue);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-title {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.9);
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background-color: var(--light-blue);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .contact-info {
+            background-color: var(--light-blue);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero {
+                padding-top: 120px;
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+
+        .hero-profile {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .profile-image-container {
+            flex-shrink: 0;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 270px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.1);
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero-profile {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-image-container {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">SW</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-profile">
+                <div class="profile-image-container">
+                    <img src="parkseongwoo.jpg" alt="박성우 이미지" class="profile-image">
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-subtitle">안녕하세요, 제 이름은</h1>
+                    <h2 class="hero-title">박성우입니다.</h2>
+                    <p class="hero-description">
+                        "빠르게 배우고, 꾸준히 성장하는 개발자가 되겠습니다."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="skills" class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item" onclick="showSkillModal('JAVA')">JAVA</div>
+                <div class="skill-item" onclick="showSkillModal('MariaDB')">SQLGATE</div>
+                <div class="skill-item" onclick="showSkillModal('HTML/CSS')">HTML/CSS</div>
+                <div class="skill-item" onclick="showSkillModal('JavaScript')">JavaScript</div>
+                <div class="skill-item" onclick="showSkillModal('JSP')">JSP</div>
+                <div class="skill-item" onclick="showSkillModal('Spring')">Spring</div>
+                <div class="skill-item" onclick="showSkillModal('JPA')">JPA</div>
+                <div class="skill-item" onclick="showSkillModal('Git')">Git</div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2 class="section-title">Projects  </h2>
+            
+            <div class="project-card" onclick="window.open('https://github.com/parkparkseongwoo/hr-react', '_blank')">
+                <h3 class="project-title">인사 HR 프로젝트 -Github 링크로 이동합니다.</h3>
+                <p class="project-subtitle">3인 팀 프로젝트</p>
+                <div class="project-tech">
+                    <span class="tech-tag">JAVA</span>
+                    <span class="tech-tag">MyBatis</span>
+                    <span class="tech-tag">JPA</span>
+                    <span class="tech-tag">ORACLE</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <p class="project-description">
+                    HR(인사) 관리 시스템 개발하였습니다
+                </p>
+            </div>
+
+            <!-- <div class="project-card" onclick="window.open('JobHunter.pdf', '_blank')">
+                <h3 class="project-title">잡헌터(구인구직 플랫폼)</h3>
+                <p class="project-subtitle">6인 팀 프로젝트</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">JPA</span>
+                    <span class="tech-tag">RESTful API</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <p class="project-description">
+                    1:1채팅 상담 기능과 고객센터 게시판을 구현했습니다. REST API와 비동기 폴링 기법을 결합하여 실시간 채팅 기능을 구현했으며, JPA를 활용하여 채팅 메시지를 저장하고 조회하는 시스템을 개발했습니다.
+                </p>
+            </div>
+
+            <div class="project-card" onclick="window.open('JobBingsoo.pdf', '_blank')">
+                <h3 class="project-title">잡빙수(구인구직 플랫폼)</h3>
+                <p class="project-subtitle">5인 팀 프로젝트</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">JPA</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">RESTful API</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <p class="project-description">
+                    기업 페이지 관리, 기업 공고 관리, 지원자 관리와 같은 기업과 관련된 핵심 기능을 구현했습니다. 뷰 서버와 REST 서버를 분리하여 크로스 오리진으로 정보 공유를 구현했습니다.
+                </p>
+            </div>
+        </section> -->
+
+        <section id="education" class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="contact-info">
+                <p>경남대학교 컴퓨터공학과 2024년 2월 졸업</p>
+                <p>서울 IT 교육과정 수료 </p>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>tjddndi04@naver.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>010-4064-6582</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="skillModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeSkillModal()">&times;</button>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+
+    <script>
+        // const skillDetails = {
+        //     'JAVA': '객체 지향 프로그래밍 기반 애플리케이션 개발 가능.<br>객체를 나누고 여러 자료구조(배열, 리스트, 맵, 셋)를 활용하여 가위바위보 게임, 관리 프로그램, 예약 프로그램 구현 가능.',
+        //     'MariaDB': 'SQL CRUD, JOIN쿼리문 작성 가능.<br>데이터베이스 설계 및 구축 가능.<br>(MariaDB, MySQL, Oracle)',
+        //     'HTML/CSS': '시맨틱 HTML을 사용하여 의미 있는 구조로 구현 가능.<br>웹페이지 레이아웃 구현 가능.<br>반응형 웹 구현 가능.',
+        //     'JavaScript': '이벤트 객체를 활용한 이벤트 버블링/캡처링 구현.<br>DOM을 동적으로 제어 가능.',
+        //     'JSP': 'JSP/Servlet을 활용한 CRUD 기능이 있는 게시판 구현 및 설계 가능.',
+        //     'Spring': 'REST API와 ajax를 활용하여 비동기적 기능 구현 가능.<br>Spring Boot, Spring Security 사용 가능.<br>CRUD 기능이 있는 게시판 구현 및 설계 가능.',
+        //     'JPA': 'JPA/Hibernate를 이용한 데이터베이스 연동 및 CRUD 기능 구현 가능.',
+        //     'Git': 'Git을 이용해서 버전 관리 및 협업 가능.<br>브랜치를 나누어 충돌 최소화.'
+        // };
+    
+        function showSkillModal(skill) {
+            const modal = document.getElementById('skillModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.textContent = skill;
+            modalContent.innerHTML = skillDetails[skill];
+            modal.style.display = 'block';
+        }
+    
+        function closeSkillModal() {
+            document.getElementById('skillModal').style.display = 'none';
+        }
+    
+        // 모달 외부 클릭시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('skillModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    
+        // 스크롤 시 네비게이션 바 효과
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(10, 25, 47, 0.95)';
+            } else {
+                nav.style.backgroundColor = 'rgba(10, 25, 47, 0.85)';
+            }
+        });
+    
+        // 부드러운 스크롤 효과
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    </body>
+    </html>
